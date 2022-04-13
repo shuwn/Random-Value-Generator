@@ -5,8 +5,8 @@ import tkinter.font as tkFont
 import webbrowser
 
 
-class AboutDialog():
-    def createNewWindow():
+class CreateNewWindow():
+    def aboutDialog():
         # create child window
         win = tk.Toplevel()
         # display message
@@ -31,9 +31,9 @@ class AboutDialog():
         app_Name["font"] = ft_t
         app_Name["fg"] = "#333333"
         app_Name["justify"] = "center"
-        app_Name["text"] = "Random Value Generator for LuxVisions"
+        app_Name["text"] = "Random Value Generator"
         app_Name["relief"] = "flat"
-        app_Name.place(relx=0.5, y=25, anchor="center",width=200,height=40)
+        app_Name.place(relx=0.5, y=25, anchor="center",width=250,height=40)
 
         app_Version=tk.Label(win)
         app_Version["font"] = ft_v
@@ -56,8 +56,38 @@ class AboutDialog():
         dev_Address["justify"] = "center"
         dev_Address["cursor"] = "hand"
         dev_Address["text"] = r"https://shuwn.dev/ →"
-        dev_Address.bind("<Button-1>", lambda e: AboutDialog.callback(r"https://shuwn.dev/"))
+        dev_Address.bind("<Button-1>", lambda e: CreateNewWindow.callback(r"https://shuwn.dev/"))
         dev_Address.place(relx=0.5, y=120, anchor="center", width=130, height=25)
+
+        win_Close=tk.Button(win)
+        win_Close["bg"] = "#efefef"
+        win_Close["font"] = ft_b
+        win_Close["fg"] = "#000000"
+        win_Close["justify"] = "center"
+        win_Close["text"] = "Ok"
+        win_Close.place(relx=0.5, y=165, anchor="center",width=80, height=40)
+        win_Close["command"] = win.destroy
+
+    def warningWin(txt):
+        win = tk.Toplevel()
+        win.title("Warning")
+        width=300
+        height=200
+        screenwidth = win.winfo_screenwidth()
+        screenheight = win.winfo_screenheight()
+        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+        win.geometry(alignstr)
+        win.resizable(width=False, height=False)
+
+        ft_v = tkFont.Font(family='cursive',size=14,weight='bold')   
+        ft_b = tkFont.Font(family='cursive',size=12,weight='bold')
+
+        warning_txt=tk.Label(win)
+        warning_txt["font"] = ft_v
+        warning_txt["fg"] = "#333333"
+        warning_txt["justify"] = "center"
+        warning_txt["text"] = txt
+        warning_txt.place(relx=0.5, y=70, anchor="center", width=200, height=40)
 
         win_Close=tk.Button(win)
         win_Close["bg"] = "#efefef"
@@ -74,5 +104,5 @@ class AboutDialog():
 if __name__ == "__main__":
     root = tk.Tk()
     root.withdraw()
-    AboutDialog.createNewWindow()
+    CreateNewWindow.aboutDialog()
     tk.mainloop()

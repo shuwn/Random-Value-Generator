@@ -4,9 +4,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 import calculate as ca
 import excel as ex
-# from test import createNewWindow
-from aboutdialog import AboutDialog
-
+from createnewwindow import CreateNewWindow
 
 class Layout:
     def __init__(self):
@@ -115,11 +113,11 @@ class Layout:
         Button_Cancel.place(x=275,y=200,width=70,height=40)
         Button_Cancel["command"] = self.btn_Cl_Event
         self.TK.mainloop()
-    
+
     def menubar(self):
         menubar = tk.Menu(self.TK)
         filemenu = tk.Menu(menubar)
-        filemenu.add_command(label="About", command = AboutDialog.createNewWindow)
+        filemenu.add_command(label="About", command = CreateNewWindow.aboutDialog)
         filemenu.add_command(label="Close", command = self.TK.quit)
         menubar.add_cascade(label="File", menu=filemenu)
         self.TK.config(menu=menubar)
@@ -128,15 +126,18 @@ class Layout:
     #     messagebox.showinfo('PythonGuides', 'Python Guides aims at providing best practical tutorials')
 
     def btn_En_Event(self):
-        Project_Name = str(self.Project_Name_Entry.get())
-        Reference_Value = float(self.Reference_Value_Entry.get())
-        Number_of_Samples = int(self.Number_of_Samples_Entry.get())
-        Floating_Range = float(self.Floating_Range_Entry.get())
-        database_var = ca.var_Get(Reference_Value, Floating_Range, Number_of_Samples)
+        Project_Name = self.Project_Name_Entry.get().strip()
+        Reference_Value = self.Reference_Value_Entry.get().strip()
+        Number_of_Samples = self.Number_of_Samples_Entry.get().strip()
+        Floating_Range = self.Floating_Range_Entry.get().strip()
+        database_var = ca.var_Get(Reference_Value, Number_of_Samples, Floating_Range)
         database = database_var[0]
         items = database_var[1]
         ex.Table(Project_Name, database, items)
 
     def btn_Cl_Event(self):
-        self.TK.destroy() 
+        self.TK.destroy()
 
+
+if __name__ == "__main__":
+    windows = Layout()
