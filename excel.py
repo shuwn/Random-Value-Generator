@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+from importlib.resources import path
 import os, sys, subprocess
 from createnewwindow import CreateNewWindow
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
+from pathlib import Path
 
 def open_file(filename):
     if sys.platform == "win32":
@@ -10,6 +12,7 @@ def open_file(filename):
     else:
         opener = "open" if sys.platform == "darwin" else "xdg-open"
         subprocess.call([opener, filename])
+        
 class Table:
     def __init__(self, Project_Name, database, items):
         if len(Project_Name) == 0:
@@ -32,12 +35,12 @@ class Table:
             datasheet['A1'].alignment = module_Name_Align
             datasheet['A1'].font = module_Name_Font
 
-            # 設置公司名稱
+            # Title
             LV_font = Font(name='Calibri', color='f1f1f1', size=14, b=True)
             LV_fill = PatternFill("solid", fgColor="165896")
             LV_Align = Alignment(horizontal='center', vertical='center')
             datasheet.merge_cells('A2:B2')
-            datasheet['A2'] = 'LuxVisions'
+            datasheet['A2'] = 'Statistics'
             datasheet['A2'].font = LV_font
             datasheet['A2'].fill = LV_fill
             datasheet['A2'].alignment = LV_Align
@@ -80,10 +83,12 @@ class Table:
             Table.set_Border(datasheet, "A3:B5")
             # Seve Excel
             excel_filename = Project_Name + '.xlsx'
-            excel.save(excel_filename)
-            open_file(excel_filename)
-            # root = os.path.abspath(excel_filename)
-            # print(root)
+            p = Path.home() / 'Downloads'
+            root = p / excel_filename
+            excel.save(root)
+            path = str(root)
+            CreateNewWindow.SaveWin(path)
+            
 
     # define outline
     def set_Border(ws, cell_range):

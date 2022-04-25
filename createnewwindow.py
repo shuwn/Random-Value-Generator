@@ -9,10 +9,9 @@ class CreateNewWindow():
     def aboutDialog():
         # create child window
         win = tk.Toplevel()
-        # display message
-        #setting title
+        # setting title
         win.title("About")
-        #setting window size
+        # setting window size
         width=300
         height=200
         screenwidth = win.winfo_screenwidth()
@@ -21,15 +20,14 @@ class CreateNewWindow():
         win.geometry(alignstr)
         win.resizable(width=False, height=False)
 
-        ft_t = tkFont.Font(family='cursive',size=16,weight='bold')
-        ft_v = tkFont.Font(family='cursive',size=14,weight='bold')   
-        ft_b = tkFont.Font(family='cursive',size=12,weight='bold')
-        ft = tkFont.Font(family='cursive',size=12)
+        ft_t = tkFont.Font(family='cursive',size=14,weight='bold')
+        ft_v = tkFont.Font(family='cursive',size=12,weight='bold')   
+        ft_b = tkFont.Font(family='cursive',size=10,weight='bold')
+        ft = tkFont.Font(family='cursive',size=10)
 
         app_Name=tk.Label(win)
         app_Name["anchor"] = "center"
         app_Name["font"] = ft_t
-        app_Name["fg"] = "#333333"
         app_Name["justify"] = "center"
         app_Name["text"] = "Random Value Generator"
         app_Name["relief"] = "flat"
@@ -37,7 +35,6 @@ class CreateNewWindow():
 
         app_Version=tk.Label(win)
         app_Version["font"] = ft_v
-        app_Version["fg"] = "#333333"
         app_Version["justify"] = "center"
         app_Version["text"] = "Version 0.1"
         app_Version.place(relx=0.5, y=70, anchor="center", width=100, height=20)
@@ -45,7 +42,6 @@ class CreateNewWindow():
         dev_Name=tk.Label(win)
         dev_Name["anchor"] = "center"
         dev_Name["font"] = ft
-        dev_Name["fg"] = "#333333"
         dev_Name["justify"] = "center"
         dev_Name["text"] = "Copyright © 2022 - Shuwn Hsu"
         dev_Name.place(relx=0.5, y=90, anchor="center", width=190, height=20)
@@ -54,10 +50,10 @@ class CreateNewWindow():
         dev_Address["font"] = ft_b
         dev_Address["fg"] = "blue"
         dev_Address["justify"] = "center"
-        dev_Address["cursor"] = "hand"
+        dev_Address["fg"] = "#548DE2"
         dev_Address["text"] = r"https://shuwn.dev/ →"
         dev_Address.bind("<Button-1>", lambda e: CreateNewWindow.callback(r"https://shuwn.dev/"))
-        dev_Address.place(relx=0.5, y=120, anchor="center", width=130, height=25)
+        dev_Address.place(relx=0.5, y=120, anchor="center", width=130, height=20)
 
         win_Close=tk.Button(win)
         win_Close["bg"] = "#efefef"
@@ -84,7 +80,6 @@ class CreateNewWindow():
 
         warning_txt=tk.Label(win)
         warning_txt["font"] = ft_v
-        warning_txt["fg"] = "#333333"
         warning_txt["justify"] = "center"
         warning_txt["text"] = txt
         warning_txt.place(relx=0.5, y=70, anchor="center", width=200, height=40)
@@ -92,10 +87,45 @@ class CreateNewWindow():
         win_Close=tk.Button(win)
         win_Close["bg"] = "#efefef"
         win_Close["font"] = ft_b
-        win_Close["fg"] = "#000000"
         win_Close["justify"] = "center"
         win_Close["text"] = "Ok"
         win_Close.place(relx=0.5, y=165, anchor="center",width=80, height=40)
+        win_Close["command"] = win.destroy
+
+    def SaveWin(txt):
+        win = tk.Toplevel()
+        win.title("")
+        width=380
+        height=180
+        screenwidth = win.winfo_screenwidth()
+        screenheight = win.winfo_screenheight()
+        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+        win.geometry(alignstr)
+        win.resizable(width=False, height=False)
+
+        ft_t = tkFont.Font(family='cursive',size=16,weight='bold')
+        ft_m = tkFont.Font(family='cursive',size=14)    
+        ft_b = tkFont.Font(family='cursive',size=12,weight='bold')
+
+        title_txt=tk.Label(win)
+        title_txt["font"] = ft_t
+        title_txt["justify"] = "center"
+        title_txt["text"] = "Saved!"
+        title_txt.place(relx=0.5, y=40, anchor="center", width=350, height=40)
+
+        Message_txt=tk.Label(win)
+        Message_txt["font"] = ft_m
+        Message_txt["justify"] = "center"
+        Message_txt["text"] = txt
+        Message_txt.place(relx=0.5, y=80, anchor="center", width=350, height=40)
+
+        win_Close=tk.Button(win)
+        win_Close["bg"] = "#efefef"
+        win_Close["font"] = ft_b
+        win_Close["fg"] = "#000000"
+        win_Close["justify"] = "center"
+        win_Close["text"] = "Ok"
+        win_Close.place(relx=0.5, y=140, anchor="center",width=80, height=40)
         win_Close["command"] = win.destroy
 
     def callback(url):
